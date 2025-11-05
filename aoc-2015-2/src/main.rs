@@ -13,9 +13,18 @@ fn main() {
             let width: i32 = split_present.next().unwrap().parse().unwrap();
             let height: i32 = split_present.next().unwrap().parse().unwrap();
 
-            answers.0 += 2 * length * width + 2 * width * height + 2 * height * length + std::cmp::min(length * width, std::cmp::min(width * height, height * length));
+            answers.0 += 2 * length * width
+                + 2 * width * height
+                + 2 * height * length
+                + std::cmp::min(
+                    length * width,
+                    std::cmp::min(width * height, height * length),
+                );
 
-            answers.1 += std::cmp::min(2 * length + 2 * width, std::cmp::min(2 * width + 2 * height, 2 * height + 2 * length)) + length * width * height;
+            answers.1 += std::cmp::min(
+                2 * length + 2 * width,
+                std::cmp::min(2 * width + 2 * height, 2 * height + 2 * length),
+            ) + length * width * height;
         }
     }
 
