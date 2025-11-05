@@ -3,7 +3,7 @@ use aoc_lib;
 fn main() {
     let mut answers = (0, 0);
 
-    let input = aoc_lib::get_input();
+    let input = String::from(aoc_lib::get_input().trim());
 
     aoc_lib::print_day(1);
     println!("{}", answers.0);

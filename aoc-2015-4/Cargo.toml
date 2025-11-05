@@ -1,0 +1,8 @@
+[package]
+name = "aoc-2015-4"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aoc-lib = { path="../aoc-lib" }
+md-5 = "0.10"

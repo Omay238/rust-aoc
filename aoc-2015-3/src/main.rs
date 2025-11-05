@@ -3,7 +3,7 @@ use aoc_lib;
 fn main() {
     let mut answers = (0, 0);
 
-    let input = aoc_lib::get_input();
+    let input = String::from(aoc_lib::get_input().trim());
 
     let mut houses_year_1: Vec<(i32, i32)> = vec![];
     let mut houses_year_2: Vec<(i32, i32)> = vec![];
