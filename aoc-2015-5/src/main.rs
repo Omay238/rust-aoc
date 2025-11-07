@@ -9,7 +9,8 @@ fn main() {
         let l = line.trim();
         let has_dbl = l.chars().zip(l.chars().skip(1)).any(|(a, b)| a == b);
         let has_vowels = l.chars().filter(|&el| "aeiou".contains(el)).count() > 2;
-        let no_disallowed = !(l.contains("ab") || l.contains("cd") || l.contains("pq") || l.contains("xy"));
+        let no_disallowed =
+            !(l.contains("ab") || l.contains("cd") || l.contains("pq") || l.contains("xy"));
 
         let zipped = l.chars().zip(l.chars().skip(1));
         let mut has_dbl_dbl = false;
