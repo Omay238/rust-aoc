@@ -21,3 +21,9 @@ Solutions for Advent of Code written in Rust.
 
 ### 2015-9
  - [itertools](https://crates.io/crates/itertools)
+
+### 2015-12
+ - [json](https://crates.io/crates/json)
+
+### 2015-13
+ - [itertools](https://crates.io/crates/itertools)
