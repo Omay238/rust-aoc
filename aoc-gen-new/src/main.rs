@@ -19,6 +19,11 @@ fn copy_recursively(
 }
 
 fn main() {
+    if std::fs::exists(format!("aoc-{}", std::env::args().last().unwrap())).is_ok() {
+        println!("folder already exists - exiting");
+        return
+    }
+
     copy_recursively(
         std::path::Path::new("aoc-example"),
         std::path::Path::new(&format!("aoc-{}", std::env::args().last().unwrap())),
