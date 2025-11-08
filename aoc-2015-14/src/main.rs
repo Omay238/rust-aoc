@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use aoc_lib;
+use std::collections::HashMap;
 
 fn main() {
     let mut answers = (0, 0);
@@ -16,7 +16,18 @@ fn main() {
         let move_time_allowed: i32 = deer_iter.nth(2).unwrap().parse().unwrap();
         let rest_time_required: i32 = deer_iter.nth(6).unwrap().parse().unwrap();
 
-        reindeer.insert(name, (move_time_allowed, -1, 0, 0, speed, move_time_allowed, rest_time_required));
+        reindeer.insert(
+            name,
+            (
+                move_time_allowed,
+                -1,
+                0,
+                0,
+                speed,
+                move_time_allowed,
+                rest_time_required,
+            ),
+        );
     }
 
     for s in 0..=2503 {
@@ -46,7 +57,7 @@ fn main() {
                     value.0 = value.5;
                 }
             }
-            
+
             if value.2 > max_score {
                 max_score = value.2;
                 max_deer = Vec::new();

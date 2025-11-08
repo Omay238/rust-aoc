@@ -1,5 +1,5 @@
-use json::JsonValue;
 use aoc_lib;
+use json::JsonValue;
 
 fn main() {
     fn sum_children(json_value: JsonValue) -> i32 {

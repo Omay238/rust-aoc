@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use itertools::Itertools;
 use aoc_lib;
+use itertools::Itertools;
+use std::collections::HashMap;
 
 fn main() {
     let mut answers = (usize::MAX, 0);
@@ -41,7 +41,7 @@ fn main() {
                 break;
             }
         }
-        
+
         if valid {
             answers.0 = answers.0.min(total_dist);
             answers.1 = answers.1.max(total_dist);

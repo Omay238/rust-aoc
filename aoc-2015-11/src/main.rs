@@ -43,7 +43,12 @@ fn main() {
 
         for idx in 0..password.len() - 3 {
             let mut chars = password.chars();
-            let str = format!("{}{}{}", chars.nth(idx).unwrap(), chars.next().unwrap(), chars.next().unwrap());
+            let str = format!(
+                "{}{}{}",
+                chars.nth(idx).unwrap(),
+                chars.next().unwrap(),
+                chars.next().unwrap()
+            );
             if alphabet.contains(&str) {
                 return true;
             }
@@ -55,15 +60,25 @@ fn main() {
 
     let mut input = String::from(aoc_lib::get_input().trim());
 
-    while input.contains("i") || input.contains("o") || input.contains("l") || !has_dbl_dbl(&input) || !has_ascending_alphabet(&input) {
+    while input.contains("i")
+        || input.contains("o")
+        || input.contains("l")
+        || !has_dbl_dbl(&input)
+        || !has_ascending_alphabet(&input)
+    {
         input = increment(&input);
     }
 
     answers.0 = input.clone();
 
     input = increment(&input);
-    
-    while input.contains("i") || input.contains("o") || input.contains("l") || !has_dbl_dbl(&input) || !has_ascending_alphabet(&input) {
+
+    while input.contains("i")
+        || input.contains("o")
+        || input.contains("l")
+        || !has_dbl_dbl(&input)
+        || !has_ascending_alphabet(&input)
+    {
         input = increment(&input);
     }
 

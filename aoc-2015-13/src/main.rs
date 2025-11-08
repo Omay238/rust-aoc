@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use itertools::Itertools;
 use aoc_lib;
+use itertools::Itertools;
+use std::collections::HashMap;
 
 fn main() {
     let mut answers = (0, 0);
@@ -18,7 +18,11 @@ fn main() {
             people.push(src_person);
         }
         line_iter.next();
-        let sign = if line_iter.next().unwrap() == "lose" {-1} else {1};
+        let sign = if line_iter.next().unwrap() == "lose" {
+            -1
+        } else {
+            1
+        };
         let score = line_iter.next().unwrap().parse::<i32>().unwrap() * sign;
         let dst_person = line_iter.last().unwrap();
 
@@ -29,8 +33,12 @@ fn main() {
         let mut relation_status = 0;
 
         for (idx, person) in perm.iter().enumerate() {
-            relation_status += relations.get(&(**person, *perm[(idx + 1) % (perm.len())])).unwrap();
-            relation_status += relations.get(&(*perm[(idx + 1) % (perm.len())], **person)).unwrap();
+            relation_status += relations
+                .get(&(**person, *perm[(idx + 1) % (perm.len())]))
+                .unwrap();
+            relation_status += relations
+                .get(&(*perm[(idx + 1) % (perm.len())], **person))
+                .unwrap();
         }
 
         if relation_status > answers.0 {
@@ -49,8 +57,12 @@ fn main() {
         let mut relation_status = 0;
 
         for (idx, person) in perm.iter().enumerate() {
-            relation_status += relations.get(&(**person, *perm[(idx + 1) % (perm.len())])).unwrap();
-            relation_status += relations.get(&(*perm[(idx + 1) % (perm.len())], **person)).unwrap();
+            relation_status += relations
+                .get(&(**person, *perm[(idx + 1) % (perm.len())]))
+                .unwrap();
+            relation_status += relations
+                .get(&(*perm[(idx + 1) % (perm.len())], **person))
+                .unwrap();
         }
 
         if relation_status > answers.1 {

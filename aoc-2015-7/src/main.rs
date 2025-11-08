@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use aoc_lib;
+use std::collections::HashMap;
 
 fn main() {
     fn parse_arg(arg: &str, wires: &HashMap<String, u16>) -> Option<u16> {
@@ -11,7 +11,11 @@ fn main() {
         None
     }
 
-    fn calculate_wires(completed_instructions: &mut Vec<bool>, input: &str, wires: &mut HashMap<String, u16>) {
+    fn calculate_wires(
+        completed_instructions: &mut Vec<bool>,
+        input: &str,
+        wires: &mut HashMap<String, u16>,
+    ) {
         while completed_instructions.iter().filter(|el| **el).count() < input.split("\n").count() {
             for line in input.split("\n").enumerate() {
                 if completed_instructions[line.0] == false {
@@ -82,13 +86,13 @@ fn main() {
 
     let mut wires: HashMap<String, u16> = HashMap::new();
 
-    let mut completed_instructions: Vec<bool> = vec![false;input.split("\n").count()];
+    let mut completed_instructions: Vec<bool> = vec![false; input.split("\n").count()];
 
     calculate_wires(&mut completed_instructions, &input, &mut wires);
 
     answers.0 = *wires.get("a").unwrap();
 
-    completed_instructions = vec![false;input.split("\n").count()];
+    completed_instructions = vec![false; input.split("\n").count()];
     wires = HashMap::new();
     wires.insert(String::from("b"), answers.0);
 
