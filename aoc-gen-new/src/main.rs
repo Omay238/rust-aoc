@@ -22,7 +22,7 @@ fn main() {
     if std::fs::exists(format!("aoc-{}", std::env::args().last().unwrap())).is_ok_and(|x| x) {
         println!("aoc-{}", std::env::args().last().unwrap());
         println!("folder already exists - exiting");
-        return
+        return;
     }
 
     copy_recursively(

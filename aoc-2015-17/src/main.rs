@@ -1,12 +1,15 @@
-use itertools::Itertools;
 use aoc_lib;
+use itertools::Itertools;
 
 fn main() {
     let mut answers = (0, 0);
 
     let input = String::from(aoc_lib::get_input().trim());
 
-    let buckets = input.split("\n").map(|x| x.parse::<i32>().unwrap()).collect_vec();
+    let buckets = input
+        .split("\n")
+        .map(|x| x.parse::<i32>().unwrap())
+        .collect_vec();
     let mut found_min = false;
     for len in 1..=buckets.len() {
         for combo in buckets.iter().cloned().combinations(len) {
