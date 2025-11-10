@@ -1,25 +1,6 @@
 [workspace]
 resolver = "3"
-members = [
+members = ["aoc-cli",
     "aoc-lib",
-    "aoc-example",
-    "aoc-gen-new",
-    "aoc-2015-1",
-    "aoc-2015-2",
-    "aoc-2015-3",
-    "aoc-2015-4",
-    "aoc-2015-5",
-    "aoc-2015-6",
-    "aoc-2015-7",
-    "aoc-2015-8",
-    "aoc-2015-9",
-    "aoc-2015-10",
-    "aoc-2015-11",
-    "aoc-2015-12",
-    "aoc-2015-13",
-    "aoc-2015-14",
-    "aoc-2015-15",
-    "aoc-2015-16",
-    "aoc-2015-17",
-    "aoc-2015-18"
+    "aoc-solutions"
 ]

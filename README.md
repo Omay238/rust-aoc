@@ -4,8 +4,9 @@ Solutions for Advent of Code written in Rust.
 
 ## Stuff
 `aoc-lib`: Helper library for making projects.  
-`aoc-example`: Base project to base each day off of.  
-`aoc-gen-new`: Tiny CLI tool to add new days.
+`aoc-solutions`: All of the solutions as a library.  
+`aoc-cli`: A CLI tool to get the solution.  
+`aoc-gui`: A website to get the solutions.
 
 ## Libraries used
 ###### (std is ignored)
