@@ -1,4 +1,4 @@
-use itertools::{sorted_unstable, Itertools};
+use itertools::{Itertools, sorted_unstable};
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
@@ -45,9 +45,9 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                         + 2 * width * height
                         + 2 * height * length
                         + std::cmp::min(
-                        length * width,
-                        std::cmp::min(width * height, height * length),
-                    );
+                            length * width,
+                            std::cmp::min(width * height, height * length),
+                        );
 
                     answers.1 += std::cmp::min(
                         2 * length + 2 * width,
@@ -126,8 +126,10 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                     let l = line.trim();
                     let has_dbl = l.chars().zip(l.chars().skip(1)).any(|(a, b)| a == b);
                     let has_vowels = l.chars().filter(|&el| "aeiou".contains(el)).count() > 2;
-                    let no_disallowed =
-                        !(l.contains("ab") || l.contains("cd") || l.contains("pq") || l.contains("xy"));
+                    let no_disallowed = !(l.contains("ab")
+                        || l.contains("cd")
+                        || l.contains("pq")
+                        || l.contains("xy"));
 
                     let zipped = l.chars().zip(l.chars().skip(1));
                     let mut has_dbl_dbl = false;
@@ -187,7 +189,8 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                                 lights_part_2[light_y][light_x] += 1;
                             } else if mode == 1 {
                                 lights_part_1[light_y][light_x] = false;
-                                lights_part_2[light_y][light_x] = (lights_part_2[light_y][light_x] - 1).max(0);
+                                lights_part_2[light_y][light_x] =
+                                    (lights_part_2[light_y][light_x] - 1).max(0);
                             } else if mode == 2 {
                                 lights_part_1[light_y][light_x] = !lights_part_1[light_y][light_x];
                                 lights_part_2[light_y][light_x] += 2;
@@ -220,7 +223,9 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                     input: &str,
                     wires: &mut HashMap<String, u16>,
                 ) {
-                    while completed_instructions.iter().filter(|el| **el).count() < input.split("\n").count() {
+                    while completed_instructions.iter().filter(|el| **el).count()
+                        < input.split("\n").count()
+                    {
                         for line in input.split("\n").enumerate() {
                             if completed_instructions[line.0] == false {
                                 let mut iter_completed = false;
@@ -228,36 +233,56 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                                 if line.1.contains("AND") {
                                     if let Some(v1) = parse_arg(line_iter.next().unwrap(), &wires) {
                                         line_iter.next();
-                                        if let Some(v2) = parse_arg(line_iter.next().unwrap(), &wires) {
+                                        if let Some(v2) =
+                                            parse_arg(line_iter.next().unwrap(), &wires)
+                                        {
                                             line_iter.next();
-                                            wires.insert(String::from(line_iter.next().unwrap()), v1 & v2);
+                                            wires.insert(
+                                                String::from(line_iter.next().unwrap()),
+                                                v1 & v2,
+                                            );
                                             iter_completed = true;
                                         }
                                     }
                                 } else if line.1.contains("OR") {
                                     if let Some(v1) = parse_arg(line_iter.next().unwrap(), &wires) {
                                         line_iter.next();
-                                        if let Some(v2) = parse_arg(line_iter.next().unwrap(), &wires) {
+                                        if let Some(v2) =
+                                            parse_arg(line_iter.next().unwrap(), &wires)
+                                        {
                                             line_iter.next();
-                                            wires.insert(String::from(line_iter.next().unwrap()), v1 | v2);
+                                            wires.insert(
+                                                String::from(line_iter.next().unwrap()),
+                                                v1 | v2,
+                                            );
                                             iter_completed = true;
                                         }
                                     }
                                 } else if line.1.contains("LSHIFT") {
                                     if let Some(v1) = parse_arg(line_iter.next().unwrap(), &wires) {
                                         line_iter.next();
-                                        if let Some(v2) = parse_arg(line_iter.next().unwrap(), &wires) {
+                                        if let Some(v2) =
+                                            parse_arg(line_iter.next().unwrap(), &wires)
+                                        {
                                             line_iter.next();
-                                            wires.insert(String::from(line_iter.next().unwrap()), v1 << v2);
+                                            wires.insert(
+                                                String::from(line_iter.next().unwrap()),
+                                                v1 << v2,
+                                            );
                                             iter_completed = true;
                                         }
                                     }
                                 } else if line.1.contains("RSHIFT") {
                                     if let Some(v1) = parse_arg(line_iter.next().unwrap(), &wires) {
                                         line_iter.next();
-                                        if let Some(v2) = parse_arg(line_iter.next().unwrap(), &wires) {
+                                        if let Some(v2) =
+                                            parse_arg(line_iter.next().unwrap(), &wires)
+                                        {
                                             line_iter.next();
-                                            wires.insert(String::from(line_iter.next().unwrap()), v1 >> v2);
+                                            wires.insert(
+                                                String::from(line_iter.next().unwrap()),
+                                                v1 >> v2,
+                                            );
                                             iter_completed = true;
                                         }
                                     }
@@ -639,7 +664,8 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             14 => {
                 use std::collections::HashMap;
 
-                let mut reindeer: HashMap<&str, (i32, i32, i32, i32, i32, i32, i32)> = HashMap::new();
+                let mut reindeer: HashMap<&str, (i32, i32, i32, i32, i32, i32, i32)> =
+                    HashMap::new();
 
                 for deer in input.split("\n") {
                     let mut deer_iter = deer.split(" ");
@@ -724,8 +750,10 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                 for line in input.split("\n") {
                     let mut line_iter = line.split(" ");
 
-                    let capacity: i32 = line_iter.nth(2).unwrap().trim_matches(',').parse().unwrap();
-                    let durability: i32 = line_iter.nth(1).unwrap().trim_matches(',').parse().unwrap();
+                    let capacity: i32 =
+                        line_iter.nth(2).unwrap().trim_matches(',').parse().unwrap();
+                    let durability: i32 =
+                        line_iter.nth(1).unwrap().trim_matches(',').parse().unwrap();
                     let flavor: i32 = line_iter.nth(1).unwrap().trim_matches(',').parse().unwrap();
                     let texture: i32 = line_iter.nth(1).unwrap().trim_matches(',').parse().unwrap();
                     let calories: i32 = line_iter.nth(1).unwrap().parse().unwrap();
@@ -762,7 +790,8 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                             let calories_d = ingredients[3].4 * d;
 
                             let capacity = 0.max(capacity_a + capacity_b + capacity_c + capacity_d);
-                            let durability = 0.max(durability_a + durability_b + durability_c + durability_d);
+                            let durability =
+                                0.max(durability_a + durability_b + durability_c + durability_d);
                             let flavor = 0.max(flavor_a + flavor_b + flavor_c + flavor_d);
                             let texture = 0.max(texture_a + texture_b + texture_c + texture_d);
                             let calories = 0.max(calories_a + calories_b + calories_c + calories_d);
@@ -797,7 +826,8 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                 for line in input.split("\n") {
                     let mut line_iter = line.split(" ");
 
-                    let sue_number: i32 = line_iter.nth(1).unwrap().trim_matches(':').parse().unwrap();
+                    let sue_number: i32 =
+                        line_iter.nth(1).unwrap().trim_matches(':').parse().unwrap();
                     let item_1 = line_iter.next().unwrap();
                     let item_n1: i32 = line_iter.next().unwrap().trim_matches(',').parse().unwrap();
                     let item_2 = line_iter.next().unwrap();
@@ -1018,7 +1048,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2016 => match date.1 {
             1 => {}
             2 => {}
@@ -1046,7 +1076,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2017 => match date.1 {
             1 => {}
             2 => {}
@@ -1074,7 +1104,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2018 => match date.1 {
             1 => {}
             2 => {}
@@ -1102,7 +1132,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2019 => match date.1 {
             1 => {}
             2 => {}
@@ -1130,7 +1160,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2020 => match date.1 {
             1 => {}
             2 => {}
@@ -1158,7 +1188,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2021 => match date.1 {
             1 => {}
             2 => {}
@@ -1186,7 +1216,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2022 => match date.1 {
             1 => {}
             2 => {}
@@ -1214,7 +1244,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2023 => match date.1 {
             1 => {}
             2 => {}
@@ -1242,7 +1272,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2024 => match date.1 {
             1 => {
                 let mut nums_a: Vec<i32> = Vec::new();
@@ -1287,7 +1317,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             24 => {}
             25 => {}
             _ => {}
-        }
+        },
         2025 => match date.1 {
             1 => {}
             2 => {}
@@ -1302,7 +1332,7 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             11 => {}
             12 => {}
             _ => {}
-        }
+        },
         _ => {}
     }
     (answers.0.to_string(), answers.1.to_string())
