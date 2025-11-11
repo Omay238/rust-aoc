@@ -1,3 +1,4 @@
+use itertools::{sorted_unstable, Itertools};
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
@@ -9,6 +10,8 @@ pub fn js_solve(year: i32, day: i32, input: String) -> JsValue {
 }
 
 pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
+    input = String::from(input.trim());
+
     // while not all solutions are numbers, most are so this is easiest.
     let mut answers: (i32, i32) = (0, 0);
 
@@ -1241,7 +1244,24 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             _ => {}
         }
         2024 => match date.1 {
-            1 => {}
+            1 => {
+                let mut nums_a: Vec<i32> = Vec::new();
+                let mut nums_b: Vec<i32> = Vec::new();
+
+                for line in input.lines() {
+                    let mut line_iter = line.split(" ");
+                    nums_a.push(line_iter.next().unwrap().parse().unwrap());
+                    nums_b.push(line_iter.last().unwrap().parse().unwrap());
+                }
+
+                nums_a = sorted_unstable(nums_a).collect_vec();
+                nums_b = sorted_unstable(nums_b).collect_vec();
+
+                for num in nums_a.iter().zip(nums_b.clone()) {
+                    answers.0 += (num.0 - num.1).abs();
+                    answers.1 += num.0 * nums_b.iter().filter(|&x| x == num.0).count() as i32;
+                }
+            }
             2 => {}
             3 => {}
             4 => {}
