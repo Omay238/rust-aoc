@@ -1129,7 +1129,174 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                     answers.1 += 1;
                 }
             }
-            21 => {}
+            21 => {
+                for weapon in 0..5 {
+                    for armor in -1..5 {
+                        for ring1 in -1..6 {
+                            for ring2 in -1..6 {
+                                if ring1 == ring2 && ring1 != -1 {
+                                    continue;
+                                }
+
+                                let mut player_hp: i32 = 100;
+                                let mut player_damage: i32 = 0;
+                                let mut player_armor: i32 = 0;
+
+                                let mut spent_money: i32 = 0;
+
+                                match weapon {
+                                    0 => {
+                                        spent_money += 8;
+                                        player_damage += 4;
+                                    }
+                                    1 => {
+                                        spent_money += 10;
+                                        player_damage += 5;
+                                    }
+                                    2 => {
+                                        spent_money += 25;
+                                        player_damage += 6;
+                                    }
+                                    3 => {
+                                        spent_money += 40;
+                                        player_damage += 7;
+                                    }
+                                    4 => {
+                                        spent_money += 74;
+                                        player_damage += 8;
+                                    }
+                                    _ => {}
+                                }
+                                match armor {
+                                    0 => {
+                                        spent_money += 13;
+                                        player_armor += 1;
+                                    }
+                                    1 => {
+                                        spent_money += 31;
+                                        player_armor += 2;
+                                    }
+                                    2 => {
+                                        spent_money += 53;
+                                        player_armor += 3;
+                                    }
+                                    3 => {
+                                        spent_money += 75;
+                                        player_armor += 4;
+                                    }
+                                    4 => {
+                                        spent_money += 102;
+                                        player_armor += 5;
+                                    }
+                                    _ => {}
+                                }
+                                match ring1 {
+                                    0 => {
+                                        spent_money += 25;
+                                        player_damage += 1;
+                                    }
+                                    1 => {
+                                        spent_money += 50;
+                                        player_damage += 2;
+                                    }
+                                    2 => {
+                                        spent_money += 100;
+                                        player_damage += 3;
+                                    }
+                                    3 => {
+                                        spent_money += 20;
+                                        player_armor += 1;
+                                    }
+                                    4 => {
+                                        spent_money += 40;
+                                        player_armor += 2;
+                                    }
+                                    5 => {
+                                        spent_money += 80;
+                                        player_armor += 3;
+                                    }
+                                    _ => {}
+                                }
+                                match ring2 {
+                                    0 => {
+                                        spent_money += 25;
+                                        player_damage += 1;
+                                    }
+                                    1 => {
+                                        spent_money += 50;
+                                        player_damage += 2;
+                                    }
+                                    2 => {
+                                        spent_money += 100;
+                                        player_damage += 3;
+                                    }
+                                    3 => {
+                                        spent_money += 20;
+                                        player_armor += 1;
+                                    }
+                                    4 => {
+                                        spent_money += 40;
+                                        player_armor += 2;
+                                    }
+                                    5 => {
+                                        spent_money += 80;
+                                        player_armor += 3;
+                                    }
+                                    _ => {}
+                                }
+
+                                let mut input_iter = input.lines();
+                                let mut boss_hp: i32 = input_iter
+                                    .next()
+                                    .unwrap()
+                                    .split(": ")
+                                    .last()
+                                    .unwrap()
+                                    .parse()
+                                    .unwrap();
+                                let boss_damage: i32 = input_iter
+                                    .next()
+                                    .unwrap()
+                                    .split(": ")
+                                    .last()
+                                    .unwrap()
+                                    .parse()
+                                    .unwrap();
+                                let boss_armor: i32 = input_iter
+                                    .next()
+                                    .unwrap()
+                                    .split(": ")
+                                    .last()
+                                    .unwrap()
+                                    .parse()
+                                    .unwrap();
+
+                                let mut current_move = false;
+
+                                while player_hp > 0 && boss_hp > 0 {
+                                    current_move = !current_move;
+
+                                    if current_move {
+                                        boss_hp -= (player_damage - boss_armor).max(1);
+                                    } else {
+                                        player_hp -= (boss_damage - player_armor).max(1);
+                                    }
+                                }
+
+                                if current_move {
+                                    if answers.0 == 0 {
+                                        answers.0 = spent_money;
+                                    }
+
+                                    answers.0 = answers.0.min(spent_money);
+                                } else {
+                                    answers.1 = answers.1.max(spent_money);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             22 => {}
             23 => {}
             24 => {}
