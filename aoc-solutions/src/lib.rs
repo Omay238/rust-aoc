@@ -1042,7 +1042,10 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             19 => {
                 use std::collections::HashSet;
 
-                fn exec_replacements(replacements: &Vec<(String, String)>, chemical: &String) -> HashSet<String> {
+                fn exec_replacements(
+                    replacements: &Vec<(String, String)>,
+                    chemical: &String,
+                ) -> HashSet<String> {
                     let mut chemicals = HashSet::new();
                     for replacement in replacements.iter() {
                         for idx in 0..=chemical.len() - replacement.0.len() + 1 {
@@ -1085,9 +1088,47 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                 answers.0 = exec_replacements(&replacements, &chemical).iter().count() as i32;
 
                 // https://www.reddit.com/r/adventofcode/comments/3xflz8/comment/cy4h7ji
-                answers.1 = (chemical.chars().filter(|c| c.is_uppercase()).count() - chemical.matches("Rn").count() - chemical.matches("Ar").count() - 2 * chemical.matches("Y").count() - 1) as i32;
+                answers.1 = (chemical.chars().filter(|c| c.is_uppercase()).count()
+                    - chemical.matches("Rn").count()
+                    - chemical.matches("Ar").count()
+                    - 2 * chemical.matches("Y").count()
+                    - 1) as i32;
             }
-            20 => {}
+            20 => {
+                fn get_factors(num: i32) -> Vec<i32> {
+                    let mut factors = Vec::new();
+                    let mut i = 1;
+
+                    while i * i < num {
+                        if num % i == 0 {
+                            factors.push(i);
+
+                            if i * i != num {
+                                factors.push(num / i);
+                            }
+                        }
+                        i += 1;
+                    }
+
+                    factors
+                }
+
+                let goal: i32 = input.parse().unwrap();
+
+                while get_factors(answers.0).iter().sum::<i32>() * 10 < goal {
+                    answers.0 += 1;
+                }
+
+                while get_factors(answers.1)
+                    .iter()
+                    .filter(|x| answers.1 / *x <= 50)
+                    .sum::<i32>()
+                    * 11
+                    < goal
+                {
+                    answers.1 += 1;
+                }
+            }
             21 => {}
             22 => {}
             23 => {}
