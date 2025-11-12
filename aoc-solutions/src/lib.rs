@@ -1,4 +1,3 @@
-use itertools::{Itertools, sorted_unstable};
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
@@ -1040,7 +1039,54 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                     .map(|x| x.iter().map(|y| if *y { 1 } else { 0 }).sum::<i32>())
                     .sum();
             }
-            19 => {}
+            19 => {
+                use std::collections::HashSet;
+
+                fn exec_replacements(replacements: &Vec<(String, String)>, chemical: &String) -> HashSet<String> {
+                    let mut chemicals = HashSet::new();
+                    for replacement in replacements.iter() {
+                        for idx in 0..=chemical.len() - replacement.0.len() + 1 {
+                            if chemical
+                                .chars()
+                                .skip(idx)
+                                .take(replacement.0.len())
+                                .collect::<String>()
+                                == replacement.0
+                            {
+                                chemicals.insert(
+                                    chemical
+                                        .chars()
+                                        .take(idx)
+                                        .chain(replacement.1.chars())
+                                        .chain(chemical.chars().skip(idx + replacement.0.len()))
+                                        .collect(),
+                                );
+                            }
+                        }
+                    }
+                    chemicals
+                }
+
+                let mut chemical = String::new();
+                let mut replacements = Vec::new();
+
+                for line in input.lines() {
+                    if line.contains("=>") {
+                        let mut split = line.split(" => ");
+                        replacements.push((
+                            String::from(split.next().unwrap()),
+                            String::from(split.next().unwrap()),
+                        ))
+                    } else if line.len() > 0 {
+                        chemical = String::from(line);
+                    }
+                }
+
+                answers.0 = exec_replacements(&replacements, &chemical).iter().count() as i32;
+
+                // https://www.reddit.com/r/adventofcode/comments/3xflz8/comment/cy4h7ji
+                answers.1 = (chemical.chars().filter(|c| c.is_uppercase()).count() - chemical.matches("Rn").count() - chemical.matches("Ar").count() - 2 * chemical.matches("Y").count() - 1) as i32;
+            }
             20 => {}
             21 => {}
             22 => {}
@@ -1284,8 +1330,8 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
                     nums_b.push(line_iter.last().unwrap().parse().unwrap());
                 }
 
-                nums_a = sorted_unstable(nums_a).collect_vec();
-                nums_b = sorted_unstable(nums_b).collect_vec();
+                nums_a.sort_unstable();
+                nums_b.sort_unstable();
 
                 for num in nums_a.iter().zip(nums_b.clone()) {
                     answers.0 += (num.0 - num.1).abs();
