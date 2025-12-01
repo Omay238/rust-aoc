@@ -1573,7 +1573,35 @@ pub fn solve(date: (i32, i32), mut input: String) -> (String, String) {
             _ => {}
         },
         2025 => match date.1 {
-            1 => {}
+            1 => {
+                let mut rot = 50;
+                for line in input.lines() {
+                    if line.starts_with("L") {
+                        for _ in 0..line.trim_start_matches('L').parse::<i32>().unwrap() {
+                            rot -= 1;
+                            if rot == -1 {
+                                rot = 99;
+                            }
+                            if rot == 0 {
+                                answers.1 += 1;
+                            }
+                        }
+                    } else {
+                        for _ in 0..line.trim_start_matches('R').parse::<i32>().unwrap() {
+                            rot += 1;
+                            if rot == 100 {
+                                rot = 0;
+                            }
+                            if rot == 0 {
+                                answers.1 += 1;
+                            }
+                        }
+                    }
+                    if rot == 0 {
+                        answers.0 += 1;
+                    }
+                }
+            }
             2 => {}
             3 => {}
             4 => {}
