@@ -1,2 +1,2 @@
-# rust aoc
-a library to help with advent of code.
+# Rust AOC
+A tool to help with advent of code.
