@@ -1,3 +1,3 @@
-fn main() {
-    println!("Hello, world!");
-}
+use aoc_lib;
+
+fn main() {}
